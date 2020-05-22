@@ -1,4 +1,5 @@
 using System;
+using AgroPlan.Property.AgroPlan.Core.Exceptions;
 using AgroPlan.Property.AgroPlan.Core.ValueObjects;
 
 namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
@@ -22,14 +23,33 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
         //public virtual ImageBin Image { get;protected set; }
 
         public static Property Create(float surface
-        , int physicalBlock, int parcel, string N_Neighbor, string S_Neighbor
-        ,string E_Neighbor,string W_Neighbor)
+            , int physicalBlock, int parcelCode
+            , string N_Neighbor, string S_Neighbor
+            , string E_Neighbor,string W_Neighbor)
         {
-            //Guard
+               if(surface <= 0f)
+                    throw new InvalidSurfaceException(
+                        "Must provide a valid surface!"
+                    );
+
+               if(string.IsNullOrEmpty(N_Neighbor)
+                || string.IsNullOrEmpty(S_Neighbor) 
+                || string.IsNullOrEmpty(W_Neighbor)
+                || string.IsNullOrEmpty(E_Neighbor)
+               )
+                    throw new ArgumentNullException(
+                        "Must provide all beighbors for this property!"
+                    );
+
+                if(parcelCode <= 0 || physicalBlock <= 0)
+                    throw new InvalidCodeException(
+                        "Must provide a valid parcel/physical bloc code!"
+                    );
+
 
             return new Property(new Surface(surface)
                 , new Code(physicalBlock)
-                , new Code(parcel)
+                , new Code(parcelCode)
                 , new Neighbors(N_Neighbor, S_Neighbor, E_Neighbor, W_Neighbor));
         }
 

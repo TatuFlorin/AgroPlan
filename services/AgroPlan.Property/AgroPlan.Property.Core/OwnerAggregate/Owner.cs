@@ -22,8 +22,21 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
 
         public IReadOnlyList<Property> Properties => _properties.AsReadOnly();
 
-        public void NewProperty(int physicalBlock, int parcelCode){
-            //Guard
+        public void RegisterProperty(int physicalBlock
+            , int parcelCode
+            , Surface surface
+            , Neighbors neighbors)
+            {
+                // _ = surface ?? throw new ArgumentNullException(
+                //     "Must provide a surface!"
+                // );
+                // //TODO: add check for each neighbor
+                // _ = neighbors ?? throw new ArgumentNullException(
+                //     "Must provide all neighbors for this property!"
+                // );
+
+                // if(parcelCode <= 0 || physicalBlock <= 0)
+                //     throw new InvalidCodeException();
 
             var taken = _properties.Any(x => x.PhysicalBlock.Equals(physicalBlock) 
                     && x.ParcelCode.Equals(parcelCode));
@@ -31,12 +44,20 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
             if(taken)
                 throw new BusyParcelException("This parcel is already taken!");
 
-            _properties.Add(Property.Create());
+            _properties.Add(Property.Create(
+                surface.Value,
+                physicalBlock,
+                parcelCode,
+                neighbors.North_Neighbor,
+                neighbors.South_NeighBor,
+                neighbors.East_Neighbor,
+                neighbors.West_Neighbor
+            ));
 
             //surface ++
         }
 
-        public void RemoveProperty(Guid id){
+        public void UnregisterProperty(Guid id){
 
             if(id == Guid.Empty || id.GetType().Equals(typeof(Guid)))
                 throw new ArgumentNullException("Have to provide an valid id.");
@@ -53,13 +74,13 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
 
         public static Owner Create(string id, string firstName, string lastName)
         {
-            if(firstName == String.Empty)
+            if(string.IsNullOrEmpty(firstName))
                 throw new ArgumentNullException();
              
-            if(lastName == String.Empty)
+            if(string.IsNullOrEmpty(lastName))
                 throw new ArgumentNullException();
 
-            return new Client(id, new Name(firstName, lastName));
+            return new Owner(id, new Name(firstName, lastName));
         }
     }
 }
