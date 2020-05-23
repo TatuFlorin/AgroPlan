@@ -27,16 +27,6 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
             , Surface surface
             , Neighbors neighbors)
             {
-                // _ = surface ?? throw new ArgumentNullException(
-                //     "Must provide a surface!"
-                // );
-                // //TODO: add check for each neighbor
-                // _ = neighbors ?? throw new ArgumentNullException(
-                //     "Must provide all neighbors for this property!"
-                // );
-
-                // if(parcelCode <= 0 || physicalBlock <= 0)
-                //     throw new InvalidCodeException();
 
             var taken = _properties.Any(x => x.PhysicalBlock.Equals(physicalBlock) 
                     && x.ParcelCode.Equals(parcelCode));
@@ -54,7 +44,9 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
                 neighbors.West_Neighbor
             ));
 
-            //surface ++
+            this.TotalSurface.ChangeSurface(
+                TotalSurface.Value + surface.Value
+            );
         }
 
         public void UnregisterProperty(Guid id){
@@ -69,7 +61,9 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
                 ? throw new PropertyNotExistException("A property with this is doesn't exist!")
                 : _properties.Remove(property);
             
-            //surface --
+            this.TotalSurface.ChangeSurface(
+                TotalSurface.Value - property.Surface.Value
+            );
         }
 
         public static Owner Create(string id, string firstName, string lastName)

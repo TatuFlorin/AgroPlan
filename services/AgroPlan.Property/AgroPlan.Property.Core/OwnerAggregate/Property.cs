@@ -27,25 +27,23 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
             , string N_Neighbor, string S_Neighbor
             , string E_Neighbor,string W_Neighbor)
         {
-               if(surface <= 0f)
-                    throw new InvalidSurfaceException(
-                        "Must provide a valid surface!"
-                    );
+            if(surface <= 0f)
+                throw new InvalidSurfaceException(
+                    "Must provide a valid surface!"
+                );
 
-               if(string.IsNullOrEmpty(N_Neighbor)
-                || string.IsNullOrEmpty(S_Neighbor) 
-                || string.IsNullOrEmpty(W_Neighbor)
-                || string.IsNullOrEmpty(E_Neighbor)
-               )
-                    throw new ArgumentNullException(
-                        "Must provide all beighbors for this property!"
-                    );
+            if(string.IsNullOrEmpty(N_Neighbor)
+            || string.IsNullOrEmpty(S_Neighbor) 
+            || string.IsNullOrEmpty(W_Neighbor)
+            || string.IsNullOrEmpty(E_Neighbor))
+                throw new ArgumentNullException(
+                    "Must provide all beighbors for this property!"
+                );
 
-                if(parcelCode <= 0 || physicalBlock <= 0)
-                    throw new InvalidCodeException(
-                        "Must provide a valid parcel/physical bloc code!"
-                    );
-
+            if(parcelCode <= 0 || physicalBlock <= 0)
+                throw new InvalidCodeException(
+                    "Must provide a valid parcel/physical bloc code!"
+                );
 
             return new Property(new Surface(surface)
                 , new Code(physicalBlock)
