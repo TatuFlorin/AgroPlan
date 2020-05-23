@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AgroPlan.Property.AgroPlan.Property.Infrastructure;
+using AgroPlan.Property.AgroPlan.Property.Infrastructure.DbConnections;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,12 @@ namespace AgroPlan.Property.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var commandConn = new CommandConnection(Configuration.GetConnectionString("CommandConnection"));
+
+            services.AddSingleton(commandConn);
+
+            services.AddDbContext<PropertyContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
