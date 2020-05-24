@@ -6,18 +6,22 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
     public class Property : Entity<Guid>
     {
         public Property (Guid id) :base(id){}
-        protected Property(Surface surface, Code physicalBlock, Code parcelCode, Neighbors neighbors)
-            :this (Guid.NewGuid())
+
+        protected Property() : base(Guid.NewGuid()) {}
+
+        protected Property(Surface surface, PhysicalBlock physicalBlock
+        , Parcel parcel, Neighbors neighbors)
+            : this(Guid.NewGuid())
         {
             Surface = surface;
             PhysicalBlock = physicalBlock;
-            ParcelCode = parcelCode;
+            Parcel = parcel;
             Neighbors = neighbors;
         }
 
         public virtual Surface Surface { get; protected set; }
-        public virtual Code PhysicalBlock { get; protected set; }
-        public virtual Code ParcelCode { get; protected set; }
+        public virtual PhysicalBlock PhysicalBlock { get; protected set; }
+        public virtual Parcel Parcel { get; protected set; }
         public virtual Neighbors Neighbors { get; protected set; }
 
         //public virtual ImageBin Image { get;protected set; }
@@ -46,8 +50,8 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
                 );
 
             return new Property(new Surface(surface)
-                , new Code(physicalBlock)
-                , new Code(parcelCode)
+                , PhysicalBlock.Create(physicalBlock)
+                , Parcel.Create(parcelCode)
                 , new Neighbors(N_Neighbor, S_Neighbor, E_Neighbor, W_Neighbor));
         }
 

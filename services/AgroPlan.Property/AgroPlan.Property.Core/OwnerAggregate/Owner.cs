@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using AgroPlan.Property.AgroPlan.Core.Exceptions;
 using AgroPlan.Property.AgroPlan.Core.ValueObjects;
 
@@ -9,6 +10,9 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
     {
 
         public Owner(string id) : base(id) { }
+
+        //Required by EntityFramework
+        protected Owner() : base("") {}
 
         protected Owner(string id, Name name)
             : this(id)
@@ -28,11 +32,11 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
             , Neighbors neighbors)
             {
 
-            var taken = _properties.Any(x => x.PhysicalBlock.Equals(physicalBlock) 
-                    && x.ParcelCode.Equals(parcelCode));
+            var taken = _properties.Any(x => x.PhysicalBlock.Equals(physicalBlock)
+                    && x.Parcel.Equals(parcelCode));
 
             if(taken)
-                throw new BusyParcelException("This parcel is already taken!");
+                throw new TakenParcelException("This parcel is already taken!");
 
             _properties.Add(Property.Create(
                 surface.Value,
@@ -52,7 +56,7 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
         public void UnregisterProperty(Guid id){
 
             if(id == Guid.Empty || id.GetType().Equals(typeof(Guid)))
-                throw new ArgumentNullException("Have to provide an valid id.");
+                throw new ArgumentNullException("Have to provide a valid id.");
             
             _ = _properties ?? throw new NullReferenceException();
 
@@ -66,8 +70,14 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
             );
         }
 
+        //Factory method
         public static Owner Create(string id, string firstName, string lastName)
         {
+            var reGex = new Regex("[0-9]{13}");
+            
+            if(!reGex.IsMatch(id))
+                throw new InvalidOwnerIdException();
+                
             if(string.IsNullOrEmpty(firstName))
                 throw new ArgumentNullException();
              

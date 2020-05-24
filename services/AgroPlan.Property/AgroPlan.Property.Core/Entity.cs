@@ -6,6 +6,8 @@ namespace AgroPlan.Property.AgroPlan.Core{
         public Entity(T id)
         { this.Id = id; }
 
+        public Entity() {}
+
         //override        
     }
 }
