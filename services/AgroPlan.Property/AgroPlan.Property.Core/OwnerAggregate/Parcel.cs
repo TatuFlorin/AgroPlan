@@ -13,11 +13,14 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
         private Parcel(Code parcelCode, string name) : this()
         {
             this.ParcelCode = parcelCode;
-            this.Name = Name;
+            this._name = Name;
         }
 
-        public Code ParcelCode {get; protected set;}
-        public string Name {get;protected set;}
+        public virtual Code ParcelCode { get; protected set; }
+
+        private readonly string _name;
+        public string Name => _name;
+        
  
         #region Factory
             public static Parcel Create(int code, string name){
@@ -28,6 +31,7 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
                     new Code(code)
                     , name);
             }
+            
             public static Parcel Create(int code){
                 if(code <= 0)
                     throw new InvalidCodeException("The code must be a positive number!");

@@ -18,20 +18,21 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
             : this(id)
         {
             this.Name = name;
+            _properties = _properties ?? new List<Property>();    
         }
 
         public virtual Name Name { get; protected set; }
         public virtual Surface TotalSurface { get; protected set; }
-        private List<Property> _properties;
+        private readonly List<Property> _properties;
 
-        public IReadOnlyList<Property> Properties => _properties.AsReadOnly();
+        public virtual IReadOnlyList<Property> Properties => _properties.AsReadOnly();
 
         public void RegisterProperty(int physicalBlock
             , int parcelCode
             , Surface surface
             , Neighbors neighbors)
             {
-
+            
             var taken = _properties.Any(x => x.PhysicalBlock.Equals(physicalBlock)
                     && x.Parcel.Equals(parcelCode));
 
@@ -39,6 +40,7 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
                 throw new TakenParcelException("This parcel is already taken!");
 
             _properties.Add(Property.Create(
+                this,
                 surface.Value,
                 physicalBlock,
                 parcelCode,

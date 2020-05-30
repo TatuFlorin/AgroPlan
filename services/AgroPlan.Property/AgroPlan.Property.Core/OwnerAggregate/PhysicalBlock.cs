@@ -13,11 +13,13 @@ namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
         protected PhysicalBlock(Code code, string name) : this()
         {
             this.Code = code;
-            this.Name = name;
+            this._name = name;
         }
 
         public virtual Code Code { get; protected set; }
-        public virtual string Name { get; protected set; }
+
+        private readonly string _name;
+        public string Name => _name;
 
         #region Factory
             public static PhysicalBlock Create(int code, string name){
