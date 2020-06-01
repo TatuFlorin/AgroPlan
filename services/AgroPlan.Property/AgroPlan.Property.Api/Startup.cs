@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AgroPlan.Property.AgroPlan.Property.Core.Interfaces;
 using AgroPlan.Property.AgroPlan.Property.Infrastructure;
 using AgroPlan.Property.AgroPlan.Property.Infrastructure.DbConnections;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +35,12 @@ namespace AgroPlan.Property.Api
             services.AddSingleton(commandConn);
 
             services.AddDbContext<PropertyContext>();
+
+            //Command repositories
+            services.AddTransient<IOwnerRepository, OwnerRepository>();
+
+            //SOON: Query repositories
+            // ->
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
