@@ -1,4 +1,4 @@
-using core = AgroPlan.Property.AgroPlan.Core.OwnerAggregate;
+using core = AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

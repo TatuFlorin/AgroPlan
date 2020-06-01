@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using AgroPlan.Property.AgroPlan.Core.Exceptions;
-using AgroPlan.Property.AgroPlan.Core.ValueObjects;
+using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
+using AgroPlan.Property.AgroPlan.Property.Core.ValueObjects;
 
-namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
+namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
     public class Owner : Entity<string>
     {
 

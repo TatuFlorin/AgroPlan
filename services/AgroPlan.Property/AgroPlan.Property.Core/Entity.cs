@@ -1,4 +1,4 @@
-namespace AgroPlan.Property.AgroPlan.Core{
+namespace AgroPlan.Property.AgroPlan.Property.Core{
     public abstract class Entity<T> {
 
         public T Id {get; protected set;}

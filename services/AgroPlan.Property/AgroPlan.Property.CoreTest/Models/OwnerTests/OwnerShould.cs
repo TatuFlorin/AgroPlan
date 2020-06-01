@@ -1,7 +1,7 @@
 using System;
-using AgroPlan.Property.AgroPlan.Core;
-using AgroPlan.Property.AgroPlan.Core.Exceptions;
-using AgroPlan.Property.AgroPlan.Core.OwnerAggregate;
+using AgroPlan.Property.AgroPlan.Property.Core;
+using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
+using AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 using Xunit;
 
 namespace AgroPlan.Property.AgroPlan.Property.CoreTest.Models.OwnerTest

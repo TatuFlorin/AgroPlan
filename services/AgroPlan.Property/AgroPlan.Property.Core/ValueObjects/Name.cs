@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AgroPlan.Property.AgroPlan.Core.ValueObjects{
+namespace AgroPlan.Property.AgroPlan.Property.Core.ValueObjects{
     public class Name : ValueObject
     {
 

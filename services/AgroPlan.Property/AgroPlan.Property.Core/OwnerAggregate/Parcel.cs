@@ -1,8 +1,8 @@
 using System;
-using AgroPlan.Property.AgroPlan.Core.Exceptions;
-using AgroPlan.Property.AgroPlan.Core.ValueObjects;
+using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
+using AgroPlan.Property.AgroPlan.Property.Core.ValueObjects;
 
-namespace AgroPlan.Property.AgroPlan.Core.OwnerAggregate{
+namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
     public class Parcel : Entity<Guid>
     {
         public Parcel(Guid id) : base(id) {}

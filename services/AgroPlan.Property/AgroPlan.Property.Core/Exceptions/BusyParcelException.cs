@@ -1,4 +1,4 @@
-namespace AgroPlan.Property.AgroPlan.Core.Exceptions{
+namespace AgroPlan.Property.AgroPlan.Property.Core.Exceptions{
 
     public class TakenParcelException : System.Exception
     {

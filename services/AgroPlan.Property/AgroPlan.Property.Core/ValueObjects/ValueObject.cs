@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AgroPlan.Property.AgroPlan.Core.ValueObjects{
+namespace AgroPlan.Property.AgroPlan.Property.Core.ValueObjects{
     public abstract class ValueObject
     {
         //override

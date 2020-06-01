@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 using AgroPlan.Property.AgroPlan.Property.Infrastructure.DbConnections;
 using Microsoft.EntityFrameworkCore.Proxies;
 using System.Reflection;
-using AgroPlan.Property.AgroPlan.Core.OwnerAggregate;
+using AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 
 namespace AgroPlan.Property.AgroPlan.Property.Infrastructure{
     public class PropertyContext : DbContext {

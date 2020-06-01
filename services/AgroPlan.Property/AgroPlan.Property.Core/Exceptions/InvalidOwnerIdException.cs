@@ -1,4 +1,4 @@
-namespace AgroPlan.Property.AgroPlan.Core.Exceptions{
+namespace AgroPlan.Property.AgroPlan.Property.Core.Exceptions{
     public class InvalidOwnerIdException : System.Exception
     {
         public InvalidOwnerIdException() { }
