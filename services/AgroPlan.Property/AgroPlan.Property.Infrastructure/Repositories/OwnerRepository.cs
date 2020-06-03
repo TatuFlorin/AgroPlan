@@ -1,6 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using AgroPlan.Property.AgroPlan.Property.Core.Interfaces;
-using core = AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
+using AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 
 namespace AgroPlan.Property.AgroPlan.Property.Infrastructure{
     public class OwnerRepository : IOwnerRepository
@@ -13,15 +14,27 @@ namespace AgroPlan.Property.AgroPlan.Property.Infrastructure{
             _context = context;
         }
 
-        public Task<core.Owner> GetByIdAsync(string Id)
+        public IUnitOfWork Uow => _context;
+
+        public async Task<Owner> GetByIdAsync(string Id)
         {
-            throw new System.NotImplementedException();
+            if(string.IsNullOrEmpty(Id))
+                throw new ArgumentNullException();
+
+            var owner = await _context.Owners.FindAsync(Id);
+            return owner;
         }
 
-        public void Save(core.Owner obj)
+        public void Remove(Owner obj)
         {
+            _ = obj ?? throw new ArgumentNullException();
+            _context.Owners.Remove(obj);
+        }
+
+        public void Save(Owner obj)
+        {
+            _ = obj ?? throw new ArgumentNullException();
             _context.Owners.Attach(obj);
         }
-
     }
 }
