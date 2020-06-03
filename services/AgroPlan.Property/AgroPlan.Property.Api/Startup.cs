@@ -1,18 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AgroPlan.Property.AgroPlan.Property.Core.Interfaces;
 using AgroPlan.Property.AgroPlan.Property.Infrastructure;
 using AgroPlan.Property.AgroPlan.Property.Infrastructure.DbConnections;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MediatR;
+using System.Reflection;
 
 namespace AgroPlan.Property.Api
 {
@@ -28,13 +24,16 @@ namespace AgroPlan.Property.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            var commandConn = new CommandConnection(Configuration.GetConnectionString("CommandConnection"));
-
-            services.AddSingleton(commandConn);
+            services.AddControllers()  
+                .AddNewtonsoftJson();
+            
+            services.AddSingleton(
+                new CommandConnection(Configuration.GetConnectionString("CommandConnection"))
+            );
 
             services.AddDbContext<PropertyContext>();
+
+            services.AddMediatR(Assembly.GetExecutingAssembly());
 
             //Command repositories
             services.AddTransient<IOwnerRepository, OwnerRepository>();
