@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MediatR;
 using System.Reflection;
+using Microsoft.OpenApi.Models;
 using AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories;
 
 namespace AgroPlan.Property.Api
@@ -39,6 +40,10 @@ namespace AgroPlan.Property.Api
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
+            services.AddSwaggerGen(o => {
+                o.SwaggerDoc("v1", new OpenApiInfo{ Title = "My Api", Version = "v1" });
+            });
+
             //Command repositories
             services.AddTransient<IOwnerRepository, OwnerRepository>();
 
@@ -54,6 +59,15 @@ namespace AgroPlan.Property.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger(o =>{
+                o.SerializeAsV2 = true;
+            });
+            
+            app.UseSwaggerUI(o => {
+                o.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                o.RoutePrefix = string.Empty;
+            });
 
             app.UseHttpsRedirection();
 
