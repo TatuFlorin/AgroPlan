@@ -5,6 +5,13 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Dtos
     [JsonObject(MemberSerialization.OptIn)]
     public sealed class OwnerDto
     {
+        public OwnerDto(string id, string fullName, float totalSurface)
+        {
+            Id = id;
+            FullName = fullName;
+            TotalSurface = totalSurface;
+        }
+
         [JsonProperty("id")]
         public string Id { get; set; }
 

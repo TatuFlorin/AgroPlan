@@ -6,8 +6,9 @@ using AgroPlan.Property.AgroPlan.Property.Core.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands{
-    public class UnregisterOwnerCommand : IRequest
+namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands
+{
+    public class UnregisterOwnerCommand : IRequest<bool>
     {
         
         public UnregisterOwnerCommand(string ownerId){
@@ -16,7 +17,7 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands{
 
         public string OwnerId { get; set; }
 
-        internal class UnregisterOwnerHandler : IRequestHandler<UnregisterOwnerCommand>
+        internal class UnregisterOwnerHandler : IRequestHandler<UnregisterOwnerCommand, bool>
         {
 
             private readonly IOwnerRepository _repo;
@@ -29,7 +30,7 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands{
                     _logger = logger ?? throw new ArgumentNullException(nameof(UnregisterOwnerCommand));
                 }
 
-            public async Task<Unit> Handle(UnregisterOwnerCommand request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(UnregisterOwnerCommand request, CancellationToken cancellationToken)
             {
                 if(request.OwnerId.Length != 13
                     || string.IsNullOrEmpty(request.OwnerId))
@@ -42,9 +43,9 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands{
 
                 _repo.Remove(owner);
 
-                await _repo.Uow.SaveChangesAsync(cancellationToken);
+                var response = await _repo.Uow.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return response == 1 ? true : false;
             }
         }
     }
