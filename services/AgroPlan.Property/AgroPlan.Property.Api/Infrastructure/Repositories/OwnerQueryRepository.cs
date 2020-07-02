@@ -1,24 +1,30 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
+using Dapper;
 
 namespace AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories
 {
-    public sealed class OwnerQueryRepository : IOwnerQueryRepository<Owner, string>
+    public sealed class OwnerQueryRepository 
+        : BaseRepository, IOwnerQueryRepository
     {
-        public Task<IEnumerable<Owner>> GetAll()
+        public async Task<IEnumerable<Owner>> GetAll()
         {
-            throw new System.NotImplementedException();
+            string queryString = "SELECT * FROM Owners";
+            
+            var response = await _connection.QueryAsync<Owner>(queryString);
+
+            return response;
         }
 
-        public Task<Owner> GetById(string Id)
+        public async Task<Owner> GetById(string Id)
         {
-            throw new System.NotImplementedException();
-        }
+            string queryString = $"SELECT * FROM Owners WHERE Id = { Id }";
 
-        public Task<Owner> GetDetails(string Id)
-        {
-            throw new System.NotImplementedException();
+            var response = await _connection.QueryFirstOrDefaultAsync<Owner>(queryString);
+
+            return response; 
         }
     }
 }

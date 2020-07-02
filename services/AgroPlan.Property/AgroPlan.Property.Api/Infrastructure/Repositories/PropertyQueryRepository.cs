@@ -2,30 +2,40 @@ using core = AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Dapper;
 
 namespace AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories
 {
 
-    public sealed class PropertyQueryRepository : IPropertyQueryRepository<core.Property, Guid>
+    public sealed class PropertyQueryRepository 
+        : BaseRepository, IPropertyQueryRepository<core.Property, Guid>
     {
-        public Task<IEnumerable<core.Property>> GetAll()
+        public async Task<IEnumerable<core.Property>> GetAll()
         {
-            throw new NotImplementedException();
+            string queryString = "SELECT * FROM Properties";
+
+            var response = await _connection.QueryAsync<core.Property>(queryString);
+
+            return response;
         }
 
-        public Task<core.Property> GetById(Guid Id)
+        public async Task<core.Property> GetById(Guid Id)
         {
-            throw new NotImplementedException();
+            string queryString = $"SELECT * FROM Properties WHERE Id = { Id }";
+
+            var response = await _connection
+                    .QueryFirstOrDefaultAsync<core.Property>(queryString);
+
+            return response;
         }
 
-        public Task<IEnumerable<core.Property>> GetByOwnerId(object ownerId)
+        public async Task<IEnumerable<core.Property>> GetByOwnerId(object ownerId)
         {
-            throw new NotImplementedException();
-        }
+            string queryString = $"SELECT * FROM Properties WHERE OwnerId = { ownerId }";
 
-        public Task<core.Property> GetDetails(Guid Id)
-        {
-            throw new NotImplementedException();
+            var response = await _connection.QueryAsync<core.Property>(queryString);
+
+            return response;
         }
     }
 }

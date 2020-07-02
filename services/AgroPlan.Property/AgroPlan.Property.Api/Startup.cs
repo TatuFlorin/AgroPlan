@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MediatR;
 using System.Reflection;
+using AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories;
 
 namespace AgroPlan.Property.Api
 {
@@ -26,9 +27,12 @@ namespace AgroPlan.Property.Api
         {
             services.AddControllers()  
                 .AddNewtonsoftJson();
-            
+
             services.AddSingleton(
                 new CommandConnection(Configuration.GetConnectionString("CommandConnection"))
+            );
+            services.AddSingleton(
+              new QueryConnection(Configuration.GetConnectionString("QueryConnection"))  
             );
 
             services.AddDbContext<PropertyContext>();
@@ -39,6 +43,7 @@ namespace AgroPlan.Property.Api
             services.AddTransient<IOwnerRepository, OwnerRepository>();
 
             //SOON: Query repositories
+            services.AddTransient<IOwnerQueryRepository, OwnerQueryRepository>();
             // ->
         }
 

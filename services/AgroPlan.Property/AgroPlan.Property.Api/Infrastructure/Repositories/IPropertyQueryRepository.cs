@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
+using core = AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 
 namespace AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories
 {
     public interface IPropertyQueryRepository<T, I>
-        : IQueryRepository<T, I>
-        where T : class
+        : IQueryRepository<core.Property, Guid>
         {
-            Task<T> GetDetails(I Id);
             Task<IEnumerable<T>> GetByOwnerId(object ownerId);
         }
 }
