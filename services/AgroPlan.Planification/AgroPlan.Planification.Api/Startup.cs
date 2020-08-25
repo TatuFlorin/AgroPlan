@@ -13,6 +13,7 @@ using AgroPlan.Planification.Api.Infrastructure.QueryRepositories;
 using FluentValidation.AspNetCore;
 using AgroPlan.Planification.Api.Application.Behaviors;
 using AgroPlan.Planification.Infrastructure.DbConnections;
+using Microsoft.OpenApi.Models;
 
 namespace AgroPlan.Planification.Api
 {
@@ -65,6 +66,14 @@ namespace AgroPlan.Planification.Api
                     builder.WithOrigins("http://localhost:3000");
                 });
             });
+
+            services.AddSwaggerGen( o => {
+                o.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Planification API", 
+                    Version = "v1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +85,15 @@ namespace AgroPlan.Planification.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger(o => {
+                o.SerializeAsV2 = true;
+            });
+
+            app.UseSwaggerUI( o => {
+                o.SwaggerEndpoint("/swagger/v1/swagger.json", "Planification Api");
+                o.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
