@@ -11,6 +11,7 @@ using MediatR;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories;
+using AgroPlan.Property.AgroPlan.Property.Infrastructure.Repositories;
 
 namespace AgroPlan.Property.Api
 {
@@ -33,7 +34,7 @@ namespace AgroPlan.Property.Api
                 new CommandConnection(Configuration.GetConnectionString("CommandConnection"))
             );
             services.AddSingleton(
-              new QueryConnection(Configuration.GetConnectionString("QueryConnection"))  
+              new QueryConnection(Configuration.GetConnectionString("CommandConnection"))  
             );
 
             services.AddDbContext<PropertyContext>();
@@ -41,15 +42,15 @@ namespace AgroPlan.Property.Api
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddSwaggerGen(o => {
-                o.SwaggerDoc("v1", new OpenApiInfo{ Title = "My Api", Version = "v1" });
+                o.SwaggerDoc("v1", new OpenApiInfo{ Title = "Property API", Version = "v1" });
             });
 
             //Command repositories
             services.AddTransient<IOwnerRepository, OwnerRepository>();
 
-            //SOON: Query repositories
+            //Query repositories
             services.AddTransient<IOwnerQueryRepository, OwnerQueryRepository>();
-            // ->
+            services.AddTransient<IPropertyQueryRepository, PropertyQueryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,9 +61,7 @@ namespace AgroPlan.Property.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger(o =>{
-                o.SerializeAsV2 = true;
-            });
+            app.UseSwagger();
             
             app.UseSwaggerUI(o => {
                 o.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
