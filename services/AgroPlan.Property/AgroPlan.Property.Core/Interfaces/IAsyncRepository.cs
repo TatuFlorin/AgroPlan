@@ -8,7 +8,7 @@ namespace AgroPlan.Property.AgroPlan.Property.Core.Interfaces{
         IUnitOfWork Uow{get;}
         Task<T> GetByIdAsync(I Id);
 
-        void Save(T obj);
+        Task<bool> SaveAsync(T obj);
         void Remove(T obj);
     }
 }
