@@ -3,37 +3,48 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Dapper;
+using AgroPlan.Property.AgroPlan.Property.Api.Application.Dtos;
+using System.Linq;
 
 namespace AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories
 {
 
     public sealed class PropertyQueryRepository 
-        : BaseRepository, IPropertyQueryRepository<core.Property, Guid>
+        : BaseRepository, IPropertyQueryRepository
     {
-        public async Task<IEnumerable<core.Property>> GetAll()
+        public async Task<IEnumerable<PropertyDto>> GetAll()
         {
             string queryString = "SELECT * FROM Properties";
 
-            var response = await _connection.QueryAsync<core.Property>(queryString);
+            var response = await _connection.QueryAsync<ListPropertyDto>(queryString);
+
+            return null;
+        }
+
+        public async Task<IEnumerable<ListPropertyDto>> GetAllAsync()
+        {
+            string queryString = "SELECT * FROM Properties";
+
+            var response = await _connection.QueryAsync<ListPropertyDto>(queryString);
 
             return response;
         }
 
-        public async Task<core.Property> GetById(Guid Id)
+        public async Task<PropertyDto> GetById(Guid Id)
         {
-            string queryString = $"SELECT * FROM Properties WHERE Id = { Id }";
+            string queryString = $"SELECT * FROM Properties WHERE Id='{Id}'";
 
             var response = await _connection
-                    .QueryFirstOrDefaultAsync<core.Property>(queryString);
+                    .QueryFirstOrDefaultAsync<PropertyDto>(queryString);
 
             return response;
         }
 
-        public async Task<IEnumerable<core.Property>> GetByOwnerId(object ownerId)
+        public async Task<IEnumerable<ListPropertyDto>> GetByOwnerId(string ownerId)
         {
-            string queryString = $"SELECT * FROM Properties WHERE OwnerId = { ownerId }";
+            string queryString = $"SELECT * FROM Properties WHERE OwnerId='{ownerId}'";
 
-            var response = await _connection.QueryAsync<core.Property>(queryString);
+            var response = await _connection.QueryAsync<ListPropertyDto>(queryString);
 
             return response;
         }
