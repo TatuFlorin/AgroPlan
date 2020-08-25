@@ -31,7 +31,7 @@ namespace AgroPlan.Property.AgroPlan.Property.Infrastructure.EntitiesConfigs{
 
             builder.HasMany(x => x.Properties)
                 .WithOne(x => x.Owner)
-                .HasForeignKey("OwnerId")
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade)
                 .Metadata.PrincipalToDependent
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
