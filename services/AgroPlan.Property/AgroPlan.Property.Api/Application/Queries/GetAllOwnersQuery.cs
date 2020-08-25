@@ -8,11 +8,11 @@ using AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories;
 
 namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands
 {
-    public sealed class GetAllOwnersQuery : IRequest<List<OwnerDto>>
+    public sealed class GetAllOwnersQuery : IRequest<IEnumerable<OwnerDto>>
     {
         public GetAllOwnersQuery() { }
         
-        internal class GetAllOwnersHandler : IRequestHandler<GetAllOwnersQuery, List<OwnerDto>>
+        internal class GetAllOwnersHandler : IRequestHandler<GetAllOwnersQuery, IEnumerable<OwnerDto>>
         {
 
             private readonly IOwnerQueryRepository _orepo;
@@ -25,20 +25,12 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands
                 _logg = logg;
             }
 
-            public async Task<List<OwnerDto>> Handle(GetAllOwnersQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<OwnerDto>> Handle(GetAllOwnersQuery request, CancellationToken cancellationToken)
             {
 
                 var owners = await _orepo.GetAll();
-                
-                var ownersList = new List<OwnerDto>();
-
-                foreach(var owner in owners){
-                    ownersList.Add(
-                        new OwnerDto(owner.Id, (string)owner.Name, owner.TotalSurface.Value)
-                    );
-                }
-
-                return ownersList;
+                return owners;
+          
             }
         }
     }

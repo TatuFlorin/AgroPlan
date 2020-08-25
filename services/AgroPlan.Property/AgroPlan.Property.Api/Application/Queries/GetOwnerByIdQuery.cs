@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AgroPlan.Property.AgroPlan.Property.Api.Application.Dtos;
 using AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories;
+using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -9,6 +10,7 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Queries{
     public sealed class GetOwnerByIdQuery : IRequest<OwnerDto>
     {
 
+        public GetOwnerByIdQuery() { }
         public GetOwnerByIdQuery(string ownerId)
         {
             OwnerId = ownerId;
@@ -31,9 +33,16 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Queries{
             
             public async Task<OwnerDto> Handle(GetOwnerByIdQuery request, CancellationToken cancellationToken)
             {
+
+                if(request.OwnerId is null || request.OwnerId == "0")
+                        throw new InvalidOwnerIdException();
+
                 var result = await _repository.GetById(request.OwnerId);
 
-                return new OwnerDto(result.Id, (string)result.Name, result.TotalSurface.Value);
+                if(result is null)
+                        throw new OwnerNotFoundException();
+
+                return result;
             }
         }
     }   
