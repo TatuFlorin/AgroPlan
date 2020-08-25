@@ -3,16 +3,16 @@ using AgroPlan.Property.AgroPlan.Property.Api.Application.Commands;
 using AgroPlan.Property.AgroPlan.Property.Api.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AgroPlan.Property.AgroPlan.Property.Api.Controller
+namespace AgroPlan.Property.AgroPlan.Property.Api.Controllers
 {
     [ApiController]
-    [Route("ppy/[controller]")]
-    public class OwnerRepository : BaseController
+    [Route("owner/[controller]")]
+    public class OwnerController : BaseController
     {
         //Commands
-        [HttpPut]
-        [Route("/register")]
-        public async Task<IActionResult> Register(RegisterOwnerCommand command)
+        [HttpPost]
+        [Route("Register")]
+        public async Task<IActionResult> Register([FromBody] RegisterOwnerCommand command)
         {
             var result = await mediator.Send(command);
 
@@ -23,7 +23,7 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Controller
         }
 
         [HttpPost]
-        [Route("/unregister")]
+        [Route("Unregister")]
         public async Task<IActionResult> Unregister(UnregisterOwnerCommand command)
         {
             var result = await mediator.Send(command);
@@ -34,20 +34,19 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Controller
             return BadRequest();
         }
 
-        //Query
-        // [HttpGet]
-        // public async Task<IActionResult> GetAll()
-        // {
-        //     //var result = await mediator.Send();
-
-        //     return Ok();
-        // }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDetails(string ownerId)
+        // Query
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
-            var result = await mediator.Send(new GetOwnerByIdQuery(ownerId));
+            var result = await mediator.Send(new GetAllOwnersQuery());
+            return Ok(result);
+        }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetDetails(string id)
+        {
+            var result = await mediator.Send(new GetOwnerByIdQuery(id));
             return Ok(result);
         }
     }
