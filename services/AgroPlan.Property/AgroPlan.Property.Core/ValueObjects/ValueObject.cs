@@ -4,9 +4,9 @@ using System.Linq;
 namespace AgroPlan.Property.AgroPlan.Property.Core.ValueObjects{
     public abstract class ValueObject
     {
-        //override
 
-        protected static bool EqualOperator(ValueObject left, ValueObject right){
+        protected static bool EqualOperator(ValueObject left, ValueObject right)
+        {
             if(ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
                 return false;
 
@@ -18,7 +18,8 @@ namespace AgroPlan.Property.AgroPlan.Property.Core.ValueObjects{
 
         protected abstract IEnumerable<object> GetAtomicValues();
 
-        public override bool Equals(object obj){
+        public override bool Equals(object obj)
+        {
             if(obj == null || obj.GetType() != GetType() )
                 return false;
 

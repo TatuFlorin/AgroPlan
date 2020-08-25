@@ -15,10 +15,21 @@ namespace AgroPlan.Property.AgroPlan.Property.Core.ValueObjects{
         public Surface ChangeSurface(float surface)
             => new Surface(surface);
 
-
         protected override IEnumerable<object> GetAtomicValues()
         {
             yield return this.Value;
         }
+
+        public static Surface operator -(Surface surface1, float surface2)
+            => new Surface(surface1.Value - surface2);
+
+        public static Surface operator -(Surface surface1, Surface surface2)
+            => new Surface(surface1.Value - surface2.Value);
+
+        public static Surface operator +(Surface surface1, Surface surface2)
+            => new Surface(surface1.Value + surface2.Value); 
+
+        public static Surface operator +(Surface surface1, float surface2)
+            => new Surface(surface1.Value + surface2);
     }
 }
