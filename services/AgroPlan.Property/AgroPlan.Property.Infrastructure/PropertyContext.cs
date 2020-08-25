@@ -7,9 +7,12 @@ using AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 using AgroPlan.Property.AgroPlan.Property.Core.Interfaces;
 using System.Threading.Tasks;
 using System.Threading;
+using AgroPlan.Property.AgroPlan.Property.Core.PhysicalBlockAggregate;
 
-namespace AgroPlan.Property.AgroPlan.Property.Infrastructure{
-    public class PropertyContext : DbContext, IUnitOfWork {
+namespace AgroPlan.Property.AgroPlan.Property.Infrastructure
+{
+    public class PropertyContext : DbContext, IUnitOfWork
+    {
 
         private readonly CommandConnection connString;
 
@@ -42,9 +45,9 @@ namespace AgroPlan.Property.AgroPlan.Property.Infrastructure{
             //here are triggered domain events
             //after or before base.SaveChangesAsync()
             
-            await base.SaveChangesAsync(cancellationToken);
+            var res = await base.SaveChangesAsync(cancellationToken);
 
-            return true;
+            return res != 0;
         }
     }
 }
