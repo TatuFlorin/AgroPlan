@@ -1,7 +1,6 @@
 using core = AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using AgroPlan.Property.AgroPlan.Property.Core.PhysicalBlockAggregate;
 
 namespace AgroPlan.Property.AgroPlan.Property.Infrastructure.EntitiesConfig{
     public class PropertyConfig : IEntityTypeConfiguration<core.Property>

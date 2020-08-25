@@ -7,7 +7,6 @@ using AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 using AgroPlan.Property.AgroPlan.Property.Core.Interfaces;
 using System.Threading.Tasks;
 using System.Threading;
-using AgroPlan.Property.AgroPlan.Property.Core.PhysicalBlockAggregate;
 
 namespace AgroPlan.Property.AgroPlan.Property.Infrastructure
 {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using AgroPlan.Property.AgroPlan.Property.Core.Enums;
 using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
-using AgroPlan.Property.AgroPlan.Property.Core.PhysicalBlockAggregate;
 using AgroPlan.Property.AgroPlan.Property.Core.ValueObjects;
 
 namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{

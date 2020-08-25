@@ -2,7 +2,6 @@ using System;
 using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
 using AgroPlan.Property.AgroPlan.Property.Core.ValueObjects;
 using AgroPlan.Property.AgroPlan.Property.Core.Enums;
-using AgroPlan.Property.AgroPlan.Property.Core.PhysicalBlockAggregate;
 
 namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
     public class Property : Entity<Guid>
