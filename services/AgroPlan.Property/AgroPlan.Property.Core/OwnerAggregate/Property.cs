@@ -1,6 +1,8 @@
 using System;
 using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
 using AgroPlan.Property.AgroPlan.Property.Core.ValueObjects;
+using AgroPlan.Property.AgroPlan.Property.Core.Enums;
+using AgroPlan.Property.AgroPlan.Property.Core.PhysicalBlockAggregate;
 
 namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
     public class Property : Entity<Guid>
@@ -9,41 +11,49 @@ namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
 
         protected Property() : base(Guid.NewGuid()) {}
 
-        protected Property(Owner owner, Surface surface, PhysicalBlock physicalBlock
-            , Parcel parcel, Neighbors neighbors)
+        protected Property(Owner owner, float surface, int physicalBlockCode
+            , int parcelCode, Neighbors neighbors)
             : this(Guid.NewGuid())
         {
-            Surface = surface;
-            _physicalBlock = physicalBlock;
-            _parcel = parcel;
+            _surface = surface;
+            _physicalBlockId = physicalBlockCode;
+            _parcelId = parcelCode;
             Neighbors = neighbors;
             Owner = owner;
+            EntityState = EntityState.Added;
         }
 
+        //non persistence
+        public EntityState EntityState { get; set; }
+
         //Value Objects
-        public virtual Surface Surface { get; protected set; }
         public virtual Neighbors Neighbors { get; protected set; }
         public virtual Owner Owner {get; protected set;}
 
-        private readonly PhysicalBlock _physicalBlock;
-        public virtual PhysicalBlock PhysicalBlock => _physicalBlock;
+        public readonly float _surface;
+        public virtual float Surface => _surface;
 
-        private readonly Parcel _parcel;
-        public virtual Parcel Parcel => _parcel;
+        private readonly int _physicalBlockId;
+        public virtual int PhysicalBlockId => _physicalBlockId;
+
+        private readonly int _parcelId;
+        public virtual int ParcelId => _parcelId;
 
         //public virtual ImageBin Image { get;protected set; }
 
         public static Property Create(Owner owner, float surface
-            , int physicalBlock, int parcelCode
+            , int parcelCode
             , string N_Neighbor, string S_Neighbor
-            , string E_Neighbor,string W_Neighbor)
+            , string E_Neighbor,string W_Neighbor
+            , int physicalBlockCode)
         {
 
-            _ = owner ?? throw new ArgumentNullException(
-                "Have to provide an owner for this property!"
+            if(parcelCode <= 0 || physicalBlockCode <= 0)
+                throw new InvalidCodeException(
+                    "Please provide valid code!"
                 );
 
-            if(surface <= 0f)
+            if(surface <= 0.0F)
                 throw new InvalidSurfaceException(
                     "Must provide a valid surface!"
                 );
@@ -53,18 +63,13 @@ namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
             || string.IsNullOrEmpty(W_Neighbor)
             || string.IsNullOrEmpty(E_Neighbor))
                 throw new ArgumentNullException(
-                    "Must provide all beighbors for this property!"
-                );
-
-            if(parcelCode <= 0 || physicalBlock <= 0)
-                throw new InvalidCodeException(
-                    "Must provide a valid parcel/physical bloc code!"
+                    "Must provide all neighbors for this property!"
                 );
 
             return new Property(owner
-                , new Surface(surface)
-                , PhysicalBlock.Create(physicalBlock)
-                , Parcel.Create(parcelCode)
+                , surface
+                , physicalBlockCode
+                , parcelCode
                 , new Neighbors(N_Neighbor, S_Neighbor, E_Neighbor, W_Neighbor));
         }
 

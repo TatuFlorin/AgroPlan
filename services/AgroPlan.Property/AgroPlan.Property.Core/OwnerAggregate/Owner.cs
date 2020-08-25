@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AgroPlan.Property.AgroPlan.Property.Core.Enums;
 using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
+using AgroPlan.Property.AgroPlan.Property.Core.PhysicalBlockAggregate;
 using AgroPlan.Property.AgroPlan.Property.Core.ValueObjects;
 
 namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
@@ -19,57 +21,47 @@ namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
         {
             this.Name = name;
             _properties = _properties ?? new List<Property>();    
+            this.TotalSurface = new Surface(0.0F);
         }
 
         public virtual Name Name { get; protected set; }
         public virtual Surface TotalSurface { get; protected set; }
-        private readonly List<Property> _properties;
+        private readonly IList<Property> _properties = new List<Property>();
 
-        public virtual IReadOnlyList<Property> Properties => _properties.AsReadOnly();
+        public virtual IList<Property> Properties => _properties.ToList();
 
         public void RegisterProperty(int physicalBlock
             , int parcelCode
-            , Surface surface
+            , float surface
             , Neighbors neighbors)
             {
-            
-            var taken = _properties.Any(x => x.PhysicalBlock.Equals(physicalBlock)
-                    && x.Parcel.Equals(parcelCode));
 
-            if(taken)
-                throw new TakenParcelException("This parcel is already taken!");
-
-            _properties.Add(Property.Create(
+            _properties?.Add(Property.Create(
                 this,
-                surface.Value,
-                physicalBlock,
+                surface,
                 parcelCode,
                 neighbors.North_Neighbor,
-                neighbors.South_NeighBor,
+                neighbors.South_Neighbor,
                 neighbors.East_Neighbor,
-                neighbors.West_Neighbor
+                neighbors.West_Neighbor,
+                physicalBlock
             ));
 
-            this.TotalSurface.ChangeSurface(
-                TotalSurface.Value + surface.Value
-            );
+            this.TotalSurface += surface;
         }
 
-        public void UnregisterProperty(Guid id){
-
-            if(id == Guid.Empty || id.GetType().Equals(typeof(Guid)))
+        public void UnregisterProperty(Guid id)
+        {
+            if(id == Guid.Empty)
                 throw new ArgumentNullException("Have to provide a valid id.");
             
-            _ = _properties ?? throw new NullReferenceException();
+            var property = _properties.FirstOrDefault(x => x.Id == id);
 
-            var property = _properties.First(x => x.Id == id);
-                _ = object.Equals(property, null) 
-                ? throw new PropertyNotExistException("A property with this is doesn't exist!")
-                : _properties.Remove(property);
+            _ = property.Equals(null)
+                ? throw new PropertyNotExistException("A property with this id doesn't exist!")
+                : (property.EntityState = EntityState.Deleted, this.TotalSurface -= property.Surface);
             
-            this.TotalSurface.ChangeSurface(
-                TotalSurface.Value - property.Surface.Value
-            );
+            _properties.Remove(property);
         }
 
         //Factory method
