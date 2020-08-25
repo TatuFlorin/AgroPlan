@@ -4,8 +4,29 @@
    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
    "version": "0.2.0",
    "configurations": [
+
         {
-            "name": ".NET Core Launch (web)",
+            "name": "Launch Planification",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/services/AgroPlan.Planification/AgroPlan.Planification.Api/bin/Debug/netcoreapp3.1/AgroPlan.Planification.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/AgroPlan.Planification/AgroPlan.Planification.Api",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": "Launch Property",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
