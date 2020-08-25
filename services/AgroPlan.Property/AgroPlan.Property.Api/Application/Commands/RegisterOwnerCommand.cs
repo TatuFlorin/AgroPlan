@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands{
     public class RegisterOwnerCommand : IRequest<bool>
     {
+        public RegisterOwnerCommand() {}
 
         public RegisterOwnerCommand(string id, string firstName, string lastName){
             Id = id;
@@ -47,20 +48,19 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands{
                 if(request.Id.Length != 13)
                         throw new InvalidOwnerIdException();
 
-                _repo.Save(Owner.Create
+                var response = await _repo.SaveAsync(Owner.Create
                 (
                     request.Id,
                     request.FirstName,
                     request.LastName
                 ));
 
-                _logger.LogInformation("[{2} : {0}] -> OWNER : ID {1} - WAS CREATED!"
-                    , DateTime.Now, "".PadRight(10,'*') + request.Id.Substring(11)
+                _logger.LogInformation("[{0} : {2}] -> OWNER : ID {1} - WAS CREATED!"
+                    , DateTime.Now, "".PadRight(10,'*') + request.Id.Substring(10)
                     , nameof(RegisterOwnerCommand));
 
-                var result = await _repo.Uow.SaveChangesAsync(cancellationToken);
 
-                return result == 1 ? true : false;
+                return response;
             }
         }
     }

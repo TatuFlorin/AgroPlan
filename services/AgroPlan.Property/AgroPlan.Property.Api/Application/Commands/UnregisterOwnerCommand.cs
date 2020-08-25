@@ -45,7 +45,7 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands
 
                 var response = await _repo.Uow.SaveChangesAsync(cancellationToken);
 
-                return response == 1 ? true : false;
+                return response != 0 ? true : false;
             }
         }
     }

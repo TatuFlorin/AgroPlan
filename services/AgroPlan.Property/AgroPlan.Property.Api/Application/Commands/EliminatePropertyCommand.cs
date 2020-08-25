@@ -45,13 +45,11 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands{
 
                 _logger.LogInformation("");
 
-                owner.UnregisterProperty(property.Id);
+                owner.UnregisterProperty(request.PropertyId);
 
-                _repo.Save(owner);
+                var response = await _repo.SaveAsync(owner);
 
-                var result = await _repo.Uow.SaveChangesAsync(cancellationToken);
-
-                return result == 1 ? true : false;        
+                return response;        
             }
         }
     }

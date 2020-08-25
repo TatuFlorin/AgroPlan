@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
@@ -6,7 +7,6 @@ using AgroPlan.Property.AgroPlan.Property.Core.Interfaces;
 using AgroPlan.Property.AgroPlan.Property.Core.ValueObjects;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using core = AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate;
 
 namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands{
     public sealed class AddPropertyCommand : IRequest<bool>
@@ -66,22 +66,20 @@ namespace AgroPlan.Property.AgroPlan.Property.Api.Application.Commands{
                 owner.RegisterProperty(
                         request.PhysicalBlock,
                         request.ParcelCode,
-                        new Surface(request.Surface),
+                        request.Surface,
                         new Neighbors(
                             request.N_Neighbor,
                             request.S_Neighbor,
                             request.W_Neighbor,
                             request.E_Neighbor
                         )
-                    );       
+                    );    
 
                 _logger.LogInformation("");
 
-                _repo.Save(owner);       
+                var response = await _repo.SaveAsync(owner);       
 
-                var response = await _repo.Uow.SaveChangesAsync(cancellationToken);
-
-                return response == 1 ? true : false;   
+                return response;   
             }
         }
     }
