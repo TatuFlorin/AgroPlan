@@ -68,9 +68,9 @@ namespace AgroPlan.Property.AgroPlan.Property.Infrastructure.Repositories
                 }   
             }
 
-            var DbResponse = await Uow.SaveChangesAsync(default(CancellationToken));
+            var DbResponse = await Uow.SaveChangesAsyncEvents(default(CancellationToken));
 
-            return DbResponse != 0;
+            return DbResponse;
         }
     }
 }

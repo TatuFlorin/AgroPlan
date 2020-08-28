@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using AgroPlan.Property.AgroPlan.Property.Core.Enums;
 using AgroPlan.Property.AgroPlan.Property.Core.Exceptions;
+using AgroPlan.Property.AgroPlan.Property.Core.DomainEvents;
 using AgroPlan.Property.AgroPlan.Property.Core.ValueObjects;
 
 namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
@@ -47,6 +48,13 @@ namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
             ));
 
             this.TotalSurface += surface;
+
+            AddEvent(
+                new PropertyAddedDomainEvent(
+                    this.Id,
+                    this.TotalSurface.Value
+                )
+            );
         }
 
         public void UnregisterProperty(Guid id)
@@ -56,11 +64,20 @@ namespace AgroPlan.Property.AgroPlan.Property.Core.OwnerAggregate{
             
             var property = _properties.FirstOrDefault(x => x.Id == id);
 
+            var surface = property.Surface;
+
             _ = property.Equals(null)
                 ? throw new PropertyNotExistException("A property with this id doesn't exist!")
                 : (property.EntityState = EntityState.Deleted, this.TotalSurface -= property.Surface);
             
             _properties.Remove(property);
+
+            AddEvent(
+                new PropertyRemovedDomainEvent(
+                    this.Id,
+                    this.TotalSurface.Value
+                )
+            );
         }
 
         //Factory method

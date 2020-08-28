@@ -12,6 +12,12 @@ using System.Reflection;
 using Microsoft.OpenApi.Models;
 using AgroPlan.Property.AgroPlan.Property.Api.Infrastructure.Repositories;
 using AgroPlan.Property.AgroPlan.Property.Infrastructure.Repositories;
+using AgroPlan.Property.AgroPlan.Property.Api.Application.Extensions;
+using AgroPlan.Property.AgroPlan.Property.Api.Application.IntegrationEvents;
+using System;
+using System.Data.Common;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace AgroPlan.Property.Api
 {
@@ -51,6 +57,11 @@ namespace AgroPlan.Property.Api
             //Query repositories
             services.AddTransient<IOwnerQueryRepository, OwnerQueryRepository>();
             services.AddTransient<IPropertyQueryRepository, PropertyQueryRepository>();
+
+            services.AddTransient<IIntegrationEventService, IntegrationEventService>();
+
+            services.AddBus(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
