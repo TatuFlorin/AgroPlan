@@ -1,8 +1,8 @@
-using AgroPlan.Planification.Core.Model.Aggregate;
-using AgroPlan.Planification.Core.Model.ValueObjects;
+using AgroPlan.Planification.Core.Aggregate;
+using AgroPlan.Planification.Core.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using core = AgroPlan.Planification.Core.Model.Aggregate;
+using core = AgroPlan.Planification.Core.Aggregate;
 
 namespace AgroPlan.Planification.Infrastructure.Configurations
 {

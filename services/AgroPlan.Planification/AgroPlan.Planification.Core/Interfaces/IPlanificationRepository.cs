@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using System;
-using core = AgroPlan.Planification.Core.Model.Aggregate;
+using core = AgroPlan.Planification.Core.Aggregate;
 
-namespace AgroPlan.Planification.Core.Model.Interfaces
+namespace AgroPlan.Planification.Core.Interfaces
 {
     public interface IPlanificationRepository
     {

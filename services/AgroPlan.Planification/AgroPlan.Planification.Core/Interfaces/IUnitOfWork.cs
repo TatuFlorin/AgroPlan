@@ -3,7 +3,7 @@ using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AgroPlan.Planification.Core.Model.Interfaces
+namespace AgroPlan.Planification.Core.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,6 +1,6 @@
 using MediatR;
 using System;
-using AgroPlan.Planification.Core.Model.Interfaces;
+using AgroPlan.Planification.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Threading;

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AgroPlan.Planification.Core.Model.ValueObjects;
-using AgroPlan.Planification.Core.Model.Exceptions;
-using AgroPlan.Planification.Core.Model.Enums;
+using AgroPlan.Planification.Core.ValueObjects;
+using AgroPlan.Planification.Core.Exceptions;
+using AgroPlan.Planification.Core.Enums;
 
-namespace AgroPlan.Planification.Core.Model.Aggregate
+namespace AgroPlan.Planification.Core.Aggregate
 {
     public class Planification : Entity<Guid>
     {

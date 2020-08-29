@@ -1,5 +1,5 @@
-using AgroPlan.Planification.Core.Model.Aggregate;
-using AgroPlan.Planification.Core.Model.Interfaces;
+using AgroPlan.Planification.Core.Aggregate;
+using AgroPlan.Planification.Core.Interfaces;
 using System;
 using System.Threading.Tasks;
 using System.Linq;

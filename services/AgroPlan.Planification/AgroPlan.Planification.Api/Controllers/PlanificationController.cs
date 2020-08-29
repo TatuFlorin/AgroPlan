@@ -1,8 +1,8 @@
 using System;
-using AgroPlan.Planification.Core.Model.Interfaces;
-using core = AgroPlan.Planification.Core.Model.Aggregate;
+using AgroPlan.Planification.Core.Interfaces;
+using core = AgroPlan.Planification.Core.Aggregate;
 using Microsoft.AspNetCore.Mvc;
-using AgroPlan.Planification.Core.Model.ValueObjects;
+using AgroPlan.Planification.Core.ValueObjects;
 using AgroPlan.Planification.Infrastructure.Repositories;
 using System.Threading.Tasks;
 using AgroPlan.Planification.Api.Application.Commands;

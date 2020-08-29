@@ -20,8 +20,8 @@ namespace AgroPlan.Planification.Api.Application.Queries
         internal class GetPlanificationsByClientHandler
             : IRequestHandler<GetPlanificationsByClientQuery, IEnumerable<PlanificationDto>>
         {
-            private readonly IPlanificationRepository _repo;
-            public GetPlanificationsByClientHandler(IPlanificationRepository repo)
+            private readonly IPlanificationQueryRepository _repo;
+            public GetPlanificationsByClientHandler(IPlanificationQueryRepository repo)
             {
                 _repo = repo;
             }

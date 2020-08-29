@@ -1,10 +1,10 @@
 using System;
 using MediatR;
-using AgroPlan.Planification.Core.Model.Interfaces;
+using AgroPlan.Planification.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Threading;
-using AgroPlan.Planification.Core.Model.ValueObjects;
+using AgroPlan.Planification.Core.ValueObjects;
 
 namespace AgroPlan.Planification.Api.Application.Commands
 {

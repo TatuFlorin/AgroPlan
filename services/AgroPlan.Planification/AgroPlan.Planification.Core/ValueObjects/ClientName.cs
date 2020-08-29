@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace AgroPlan.Planification.Core.Model.ValueObjects
+namespace AgroPlan.Planification.Core.ValueObjects
 {
     public class ClientName : ValueObject
     {

@@ -9,9 +9,9 @@ using Npgsql;
 
 namespace AgroPlan.Planification.Api.Infrastructure.QueryRepositories
 {
-    public class PlanificationRepository : BaseRepository, IPlanificationRepository
+    public class PlanificationQueryRepository : BaseRepository, IPlanificationQueryRepository
     {
-        public PlanificationRepository(QueryConnectionString connString)
+        public PlanificationQueryRepository(QueryConnectionString connString)
         : base(connString.Value)
         {
         }

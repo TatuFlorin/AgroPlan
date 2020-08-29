@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace AgroPlan.Planification.Core.Model
+namespace AgroPlan.Planification.Core
 {
     public abstract class Entity<T>
     {

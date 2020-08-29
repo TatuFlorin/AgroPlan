@@ -1,4 +1,4 @@
-using coreInt = AgroPlan.Planification.Core.Model.Interfaces;
+using AgroPlan.Planification.Core.Interfaces;
 using AgroPlan.Planification.Infrastructure;
 using repos = AgroPlan.Planification.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using core = AgroPlan.Planification.Core.Model.Aggregate;
+using core = AgroPlan.Planification.Core.Aggregate;
 using MediatR;
 using System.Reflection;
 using AgroPlan.Planification.Api.Infrastructure.QueryRepositories;
@@ -41,10 +41,10 @@ namespace AgroPlan.Planification.Api
 
             //Command Repositories
             services.AddSingleton<PlanContext>();
-            services.AddSingleton<coreInt.IUnitOfWork, PlanContext>();
-            services.AddTransient<coreInt.IPlanificationRepository, repos.PlanificationRepository>();
-            services.AddTransient<coreInt.IRepository<core.Client, string>, repos.ClientRepository>();
-            services.AddTransient<coreInt.ICropTypeRepostitory, repos.CropTypeRepository>();
+            services.AddSingleton<IUnitOfWork, PlanContext>();
+            services.AddTransient<IPlanificationRepository, repos.PlanificationRepository>();
+            services.AddTransient<IRepository<core.Client, string>, repos.ClientRepository>();
+            services.AddTransient<ICropTypeRepostitory, repos.CropTypeRepository>();
             services.AddDbContext<PlanContext>();
 
             //FluentValidation
@@ -54,8 +54,8 @@ namespace AgroPlan.Planification.Api
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             //Query Repositories
-            services.AddTransient<ICropRepository, CropRepository>();
-            services.AddTransient<IPlanificationRepository, PlanificationRepository>();
+            services.AddTransient<ICropQueryRepository, CropQueryRepository>();
+            services.AddTransient<IPlanificationQueryRepository, PlanificationQueryRepository>();
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
 

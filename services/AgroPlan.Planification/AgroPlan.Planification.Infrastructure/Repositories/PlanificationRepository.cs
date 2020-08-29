@@ -1,9 +1,9 @@
-using AgroPlan.Planification.Core.Model.Interfaces;
-using core = AgroPlan.Planification.Core.Model.Aggregate;
+using AgroPlan.Planification.Core.Interfaces;
+using core = AgroPlan.Planification.Core.Aggregate;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using AgroPlan.Planification.Core.Model.Enums;
+using AgroPlan.Planification.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Threading;

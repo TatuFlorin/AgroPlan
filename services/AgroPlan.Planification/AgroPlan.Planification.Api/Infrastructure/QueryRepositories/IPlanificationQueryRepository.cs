@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AgroPlan.Planification.Api.Infrastructure.QueryRepositories
 {
-    public interface IPlanificationRepository
+    public interface IPlanificationQueryRepository
     {
         Task<IEnumerable<PlanificationDto>> GetByClientAsync(string clientId);
     }

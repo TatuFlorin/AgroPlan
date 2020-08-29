@@ -20,9 +20,9 @@ namespace AgroPlan.Planification.Api.Application.Queries
             : IRequestHandler<GetCropsByPlanificationQuery, IEnumerable<CropDto>>
         {
 
-            private readonly ICropRepository _repo;
+            private readonly ICropQueryRepository _repo;
 
-            public GetCropsByPlanificationHandler(ICropRepository repo)
+            public GetCropsByPlanificationHandler(ICropQueryRepository repo)
             {
                 _repo = repo;
             }

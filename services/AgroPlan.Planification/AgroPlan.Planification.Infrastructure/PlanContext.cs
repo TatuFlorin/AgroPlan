@@ -1,10 +1,10 @@
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using AgroPlan.Planification.Core.Model.Interfaces;
+using AgroPlan.Planification.Core.Interfaces;
 using AgroPlan.Planification.Infrastructure.DbConnections;
 using Microsoft.EntityFrameworkCore;
-using core = AgroPlan.Planification.Core.Model.Aggregate;
+using core = AgroPlan.Planification.Core.Aggregate;
 
 namespace AgroPlan.Planification.Infrastructure
 {

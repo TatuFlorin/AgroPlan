@@ -1,7 +1,7 @@
 using System;
-using AgroPlan.Planification.Core.Model.ValueObjects;
+using AgroPlan.Planification.Core.ValueObjects;
 
-namespace AgroPlan.Planification.Core.Model.Aggregate
+namespace AgroPlan.Planification.Core.Aggregate
 {
     public class CropType : Entity<Guid>
     {

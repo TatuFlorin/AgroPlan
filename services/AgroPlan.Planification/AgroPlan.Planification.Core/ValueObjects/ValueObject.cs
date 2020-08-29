@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AgroPlan.Planification.Core.Model.ValueObjects
+namespace AgroPlan.Planification.Core.ValueObjects
 {
     public abstract class ValueObject
     {

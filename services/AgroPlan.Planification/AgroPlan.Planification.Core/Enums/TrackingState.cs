@@ -1,4 +1,4 @@
-namespace AgroPlan.Planification.Core.Model.Enums
+namespace AgroPlan.Planification.Core.Enums
 {
     public enum TrackingState
     {

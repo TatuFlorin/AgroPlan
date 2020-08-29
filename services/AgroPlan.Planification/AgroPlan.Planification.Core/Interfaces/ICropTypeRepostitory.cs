@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using AgroPlan.Planification.Core.Model.Aggregate;
+using AgroPlan.Planification.Core.Aggregate;
 
-namespace AgroPlan.Planification.Core.Model.Interfaces
+namespace AgroPlan.Planification.Core.Interfaces
 {
     public interface ICropTypeRepostitory
     {

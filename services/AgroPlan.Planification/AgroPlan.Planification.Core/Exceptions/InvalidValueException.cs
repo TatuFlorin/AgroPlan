@@ -1,4 +1,4 @@
-namespace AgroPlan.Planification.Core.Model.Exceptions
+namespace AgroPlan.Planification.Core.Exceptions
 {
     public class InvalidValueException : System.Exception
     {

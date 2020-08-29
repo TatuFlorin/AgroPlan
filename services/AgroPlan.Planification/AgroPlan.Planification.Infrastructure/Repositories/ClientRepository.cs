@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using AgroPlan.Planification.Core.Model.Aggregate;
-using AgroPlan.Planification.Core.Model.Interfaces;
+using AgroPlan.Planification.Core.Aggregate;
+using AgroPlan.Planification.Core.Interfaces;
 
 namespace AgroPlan.Planification.Infrastructure.Repositories
 {

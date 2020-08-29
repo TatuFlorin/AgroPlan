@@ -18,6 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AgroPlan.Planification.Core\AgroPlan.Planification.Core.csproj" />
     <ProjectReference Include="..\AgroPlan.Planification.Infrastructure\AgroPlan.Planification.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\AgroPlan.Common\Bus\RabbitMQ\RabbitMQ.csproj" />
+    <ProjectReference Include="..\..\AgroPlan.Common\Bus\ServiceBus\ServiceBus.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AgroPlan.Planification.Core.Model.ValueObjects
+namespace AgroPlan.Planification.Core.ValueObjects
 {
     public class Surface : ValueObject
     {

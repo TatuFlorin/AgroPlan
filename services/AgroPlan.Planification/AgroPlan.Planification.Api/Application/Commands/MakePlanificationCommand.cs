@@ -1,11 +1,11 @@
-using core = AgroPlan.Planification.Core.Model.Aggregate;
+using core = AgroPlan.Planification.Core.Aggregate;
 using System.Threading;
 using System.Threading.Tasks;
-using AgroPlan.Planification.Core.Model.Interfaces;
+using AgroPlan.Planification.Core.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
-using AgroPlan.Planification.Core.Model.ValueObjects;
+using AgroPlan.Planification.Core.ValueObjects;
 
 namespace AgroPlan.Planification.Api.Application.Commands
 {
